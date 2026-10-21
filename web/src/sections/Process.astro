@@ -1,0 +1,8 @@
+---
+import { steps } from '../data/content';
+---
+<section id="como-trabajamos" class="process shell section-space" aria-labelledby="process-title">
+  <div class="section-heading"><span class="eyebrow"><span class="section-dot" /> 03 / Cómo trabajamos</span><h2 id="process-title" data-reveal>Primero entendemos.<br />Después construimos.</h2></div>
+  <div class="process-intro"><p>Somos Suplio. Un estudio que conecta diseño y tecnología para resolver necesidades reales de las empresas.</p><p>Podés llegar con una idea, un proceso que te demora o una herramienta que ya no te sirve. Empezamos por ahí.</p></div>
+  <div class="process-grid">{steps.map(step => <article class="process-step" data-reveal><span class="process-number" aria-hidden="true">{step.number}</span><h3>{step.title.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</h3><p>{step.text}</p></article>)}</div>
+</section>

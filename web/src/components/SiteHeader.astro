@@ -1,0 +1,20 @@
+---
+import Arrow from './Arrow.astro';
+const links = [{ href: '#servicios', label: 'Servicios' }, { href: '#proyectos', label: 'Proyectos' }, { href: '#como-trabajamos', label: 'Cómo trabajamos' }];
+---
+<header class="site-header" data-header>
+  <div class="shell header-inner">
+    <a href="#inicio" class="site-logo" aria-label="Suplio, inicio"><img src="/brand/suplio-horizontal-claro.svg" width="378" height="120" alt="Suplio" fetchpriority="high" /></a>
+    <nav class="desktop-nav" aria-label="Navegación principal">
+      {links.map(link => <a href={link.href}>{link.label}</a>)}
+    </nav>
+    <a class="header-contact" href="#contacto">Hablemos <Arrow /></a>
+    <button class="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menú"><span data-menu-label>Menú</span><span class="menu-toggle__lines" aria-hidden="true"><i></i><i></i></span></button>
+  </div>
+  <dialog id="mobile-menu" class="mobile-menu" aria-label="Navegación">
+    <div class="shell mobile-menu__top"><span>Suplio / Navegación</span><button type="button" class="menu-close" aria-label="Cerrar menú">Cerrar <span aria-hidden="true">×</span></button></div>
+    <nav class="shell mobile-menu__links" aria-label="Navegación móvil">{[...links, { href: '#contacto', label: 'Contacto' }].map((link, i) => <a href={link.href}><span class="eyebrow">0{i + 1}</span>{link.label}<Arrow /></a>)}</nav>
+    <a class="shell mobile-menu__email" href="mailto:hola@suplio.ar">hola@suplio.ar <Arrow /></a>
+  </dialog>
+  <noscript><style is:inline>.menu-toggle{display:none!important}</style><nav class="fallback-nav shell" aria-label="Navegación móvil">{links.map(link => <a href={link.href}>{link.label}</a>)}<a href="#contacto">Contacto</a></nav></noscript>
+</header>

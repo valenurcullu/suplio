@@ -1,0 +1,14 @@
+---
+import Arrow from '../components/Arrow.astro';
+import BrandMark from '../components/BrandMark.astro';
+import ContactLink from '../components/ContactLink.astro';
+---
+<section class="hero shell" aria-labelledby="hero-title">
+  <div class="hero-kicker eyebrow"><span><i class="status-dot" /> Estudio de soluciones tecnológicas</span><span class="hero-location">Argentina <span aria-hidden="true">↗</span></span></div>
+  <div class="hero-main">
+    <h1 id="hero-title"><span class="hero-line" data-hero-line>Tu empresa tiene </span><span class="hero-line" data-hero-line>sus desafíos. </span><span class="hero-solution" data-hero-line>Diseñamos la tecnología<br class="desktop-break" /> para resolverlos<span class="orange-period">.</span></span></h1>
+    <div class="hero-art" aria-hidden="true"><span class="hero-art__index eyebrow">Necesidad ↔ Solución</span><BrandMark class="hero-mark" animated /><span class="hero-art__coordinate">S / 01</span></div>
+  </div>
+  <div class="hero-bottom"><div class="hero-description"><p>Webs, aplicaciones y automatizaciones según lo que necesita tu empresa.</p><ContactLink /></div><a href="#servicios" class="hero-discover" aria-label="Conocé lo que hacemos"><span class="eyebrow">Conocé lo que hacemos</span><span class="round-arrow"><Arrow direction="down" /></span></a></div>
+  <div class="hero-baseline eyebrow"><span>Entender. Diseñar. Resolver.</span><span>Webs / Aplicaciones / Automatización</span></div>
+</section>

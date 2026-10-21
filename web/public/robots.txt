@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://suplio.ar/sitemap-index.xml

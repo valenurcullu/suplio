@@ -1,0 +1,19 @@
+{
+  "fecha": "2026-10-20",
+  "logos_sha256": {
+    "suplio-icono-naranja.png": "60cc77f32be7c08ed1778ecb9ff72367c16dc8c19e16434ab285d84a2eb4c7ff",
+    "suplio-simbolo-blanco.png": "9f69b587652d2869e55f7d0e81e9476495432b14bcf78a51a64662849337bed5",
+    "suplio-simbolo-color.png": "8649ecafde6e71aa90e1b380687fc55f52fbf8c699886fae9bea128f0233f24a",
+    "suplio-simbolo-color.svg": "cd21e3797612e0afcd3196d66a9ec2edf5e14e16029ce9a91fe5aeaa48422faa",
+    "suplio-simbolo-blanco.svg": "88a49363aa30412feef484b31b268c757ddd2713f534de79fddd4bba3158d445",
+    "suplio-icono-naranja.svg": "b91f4a94843c9401c69b990e311349e728f24a5f156f841a417a8b4fb47610f8",
+    "suplio-icono-oscuro.svg": "e193bc1df9075ba2575f4f8744db8257dfd4e115f59a427c3b9a2e8876449e8a",
+    "suplio-icono-oscuro.png": "161fbd07eb0308d0b82c0c3f62e6a941210eaf15ab31d4e0664722f2703bdc0e"
+  },
+  "respaldo": "referencias/respaldo-antes-de-limpieza-2026-10-20",
+  "retirados_de_carpeta_activa": [
+    "support.js",
+    "Suplio Brand Identity.dc.html"
+  ],
+  "simbolos_triangulares_reemplazados": 13
+}

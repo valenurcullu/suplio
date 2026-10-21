@@ -1,0 +1,6 @@
+---
+import Arrow from './Arrow.astro';
+interface Props { label?: string; class?: string }
+const { label = 'Contanos qué necesitás', class: className = '' } = Astro.props;
+---
+<a class:list={['contact-link', className]} href="mailto:hola@suplio.ar"><span>{label}</span><span class="contact-link__icon"><Arrow /></span></a>
