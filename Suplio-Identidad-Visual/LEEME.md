@@ -1,6 +1,7 @@
 # Suplio — Material vigente
 
-- `logos/`: 8 archivos originales SVG/PNG del isotipo 3B. Se conservaron sin cambios.
+- `logos/`: 12 archivos originales SVG/PNG del isotipo 3B y de los logos horizontales para fondos claros y oscuros. Se conservaron sin cambios.
+- `vistas-previas/`: imagen de presentación original de la identidad.
 - `Paleta y tipografia.md`: guía breve de colores, tipografías y mensaje vigente.
 - `Suplio Logo System.dc.html`: aplicaciones del 3B y wordmark. Abrir en el navegador.
 - `Suplio Mockups.dc.html`: referencias de aplicación sin el slogan descartado.

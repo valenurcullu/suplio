@@ -1,13 +1,9 @@
 ---
 import { services } from '../data/content';
-import Arrow from '../components/Arrow.astro';
+import ServicePreview from '../components/ServicePreview.astro';
 ---
 <section id="servicios" class="services shell section-space" aria-labelledby="services-title">
   <div class="section-heading"><span class="eyebrow"><span class="section-dot" /> 01 / Qué hacemos</span><h2 id="services-title" data-reveal>Tecnología con<br />un <span class="serif-free">porqué.</span></h2><p>Cada negocio funciona distinto.<br />La solución también debería.</p></div>
-  <div class="service-list">{services.map(service => <article class="service-row" data-reveal><span class="service-number eyebrow">/{service.number}</span><div class="service-name"><h3>{service.title.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</h3><span class="service-tag">{service.tag}</span></div><div class="service-copy"><p>{service.description}</p><span class="service-examples">{service.examples}</span></div><div class:list={['service-diagram', `diagram--${service.diagram}`]} aria-hidden="true">
-    {service.diagram === 'web' && <div class="mini-window"><div class="mini-window__bar"><i/><i/><i/></div><div class="mini-window__body"><span/><span/><b/><i/></div></div>}
-    {service.diagram === 'app' && <div class="mini-app"><span class="mini-app__sidebar"><i/><i/><i/></span><span class="mini-app__main"><b/><i/><i/><i/></span><span class="mini-app__plus">+</span></div>}
-    {service.diagram === 'flow' && <div class="mini-flow"><span/><i/><span/><i/><span class="mini-flow__end"><Arrow /></span></div>}
-  </div></article>)}</div>
+  <div class="service-list">{services.map(service => <article class="service-row" data-reveal><span class="service-number eyebrow">/{service.number}</span><div class="service-name"><h3>{service.title.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</h3><span class="service-tag">{service.tag}</span></div><div class="service-copy"><p>{service.description}</p><span class="service-examples">{service.examples}</span></div><ServicePreview kind={service.diagram} title={service.title} /></article>)}</div>
   <div class="services-note"><span class="eyebrow">De la idea a la implementación</span><p>También acompañamos el relevamiento, la elección de herramientas y la capacitación. Si el proyecto requiere infraestructura, coordinamos con especialistas.</p></div>
 </section>

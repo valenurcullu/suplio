@@ -43,3 +43,11 @@ Los puntajes corresponden a una ejecución local con emulación móvil. Pueden c
 ## Antes de publicar
 
 El caso Naves del Sur usa un placeholder explícito. Incorporar capturas y alcance autorizados, o retirar temporalmente el caso y su enlace de navegación. No se configuraron GitHub, Netlify ni DNS.
+
+## Organización de recursos — 21 de octubre de 2026
+
+- Los logos horizontales originales están en `Suplio-Identidad-Visual/logos/` y la presentación original en `Suplio-Identidad-Visual/vistas-previas/`. Las seis imágenes reubicadas conservan exactamente sus bytes (SHA-256).
+- Los SVG que usa la página mantienen sus rutas `/brand/`. La pieza social está en `public/images/og.png`, con Open Graph, Twitter, documentación, generador y verificador actualizados a `/images/og.png`.
+- `npm run build`: completado, sin errores, advertencias ni hints. Se usó la copia local de QA con código y configuración idénticos para evitar las demoras de la unidad de red.
+- `npm run test:browser`: aprobado en 320, 390, 768, 1024 y 1440 px; sin desbordes, incidencias axe, errores de JavaScript ni recursos HTTP fallidos. Incluye las seis rutas SVG y la nueva imagen social, además de menú, teclado, anclas y contenido sin JavaScript.
+- `node scripts/generate-og.mjs`: correcto en Windows; produjo un PNG idéntico al original en la nueva ubicación.

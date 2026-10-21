@@ -21,6 +21,8 @@ try {
     const dimensions = await page.evaluate(() => ({ viewport: innerWidth, content: document.documentElement.scrollWidth }));
     assert(dimensions.content <= dimensions.viewport, `Horizontal overflow at ${width}px: ${JSON.stringify(dimensions)}`);
     assert.equal(await page.locator('h1').count(), 1);
+    assert.equal(await page.locator('meta[property="og:image"]').getAttribute('content'), 'https://suplio.ar/images/og.png');
+    assert.equal(await page.locator('meta[name="twitter:image"]').getAttribute('content'), 'https://suplio.ar/images/og.png');
     assert.equal(await page.locator('html').getAttribute('lang'), 'es-AR');
     assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), 'https://suplio.ar/');
     const missingAnchors = await page.evaluate(() => Array.from(document.querySelectorAll('a[href^="#"]')).filter(a => !document.getElementById(a.getAttribute('href').slice(1))).map(a => a.getAttribute('href')));
@@ -72,7 +74,7 @@ try {
   await nojs.setViewportSize({ width: 768, height: 1024 });
   assert(await nojs.locator('.fallback-nav').isVisible());
   await nojs.close();
-  for (const path of ['/og.png', '/robots.txt', '/sitemap-index.xml', '/sitemap-0.xml']) {
+  for (const path of ['/images/og.png', '/brand/suplio-horizontal-claro.svg', '/brand/suplio-horizontal-oscuro.svg', '/brand/suplio-simbolo-color.svg', '/brand/suplio-simbolo-blanco.svg', '/brand/suplio-icono-oscuro.svg', '/brand/suplio-icono-naranja.svg', '/robots.txt', '/sitemap-index.xml', '/sitemap-0.xml']) {
     const resource = await fetch(`${base}${path}`);
     assert.equal(resource.status, 200, `${path} should exist`);
   }

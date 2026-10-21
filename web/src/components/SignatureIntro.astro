@@ -1,0 +1,84 @@
+---
+import BrandMark from './BrandMark.astro';
+---
+<div id="signature-intro" class="signature-intro" hidden data-intro-state="idle" data-intro-phase="idle">
+  <div class="signature-intro__visual" aria-hidden="true">
+    <div class="signature-intro__center"><BrandMark class="signature-intro__mark" /></div>
+  </div>
+  <button class="signature-intro__skip" type="button">Omitir intro <span aria-hidden="true">↗</span></button>
+</div>
+<script is:inline>
+  (() => {
+    const root = document.getElementById('signature-intro');
+    if (!root) return;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const preview = new URLSearchParams(location.search).get('intro') === 'preview';
+    const supported = CSS.supports('clip-path', 'polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 50%, 50% 50%, 50% 50%)');
+    try {
+      if (motion.matches || location.hash || scrollY > 40 || !supported) return;
+      if (!preview && sessionStorage.getItem('suplio:intro:v1') === 'seen') return;
+      sessionStorage.setItem('suplio:intro:v1', 'seen');
+    } catch { return; }
+
+    const listeners = new AbortController();
+    const options = { signal: listeners.signal };
+    // This watchdog and all skip controls work even if the animation bundle fails.
+    const watchdog = window.setTimeout(() => release('timeout'), 4500);
+    function release(reason) {
+      if (root.hidden) return;
+      const restoreFocus = root.contains(document.activeElement);
+      root.hidden = true;
+      root.dataset.introState = 'done';
+      root.dataset.introPhase = 'complete';
+      root.dataset.introReason = reason;
+      clearTimeout(watchdog);
+      listeners.abort();
+      root.dispatchEvent(new CustomEvent('suplio:intro-end', { detail: { reason } }));
+      if (restoreFocus) {
+        const target = document.getElementById('contenido');
+        if (target) {
+          const previous = target.getAttribute('tabindex');
+          target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+          target.addEventListener('blur', () => {
+            if (previous === null) target.removeAttribute('tabindex');
+            else target.setAttribute('tabindex', previous);
+          }, { once: true });
+        }
+      }
+    }
+    root.addEventListener('suplio:intro-release', event => release(event.detail?.reason ?? 'complete'), options);
+    root.querySelector('button').addEventListener('click', () => release('skip'), options);
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' || event.key === 'Tab') release('keyboard');
+    }, options);
+    document.addEventListener('focusin', event => {
+      if (!root.contains(event.target)) release('focus');
+    }, options);
+    window.addEventListener('wheel', () => release('scroll'), { ...options, passive: true });
+    window.addEventListener('touchmove', () => release('scroll'), { ...options, passive: true });
+    window.addEventListener('scroll', () => { if (scrollY > 40) release('scroll'); }, { ...options, passive: true });
+    const initialWidth = document.documentElement.clientWidth;
+    const initialHeight = window.innerHeight;
+    window.addEventListener('resize', () => {
+      if (Math.abs(document.documentElement.clientWidth - initialWidth) > 1 || Math.abs(innerHeight - initialHeight) > 1) release('resize');
+    }, { ...options, passive: true });
+    window.addEventListener('pagehide', () => release('navigation'), options);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) release('hidden'); }, options);
+    document.addEventListener('astro:before-swap', () => release('navigation'), options);
+    motion.addEventListener('change', event => { if (event.matches) release('reduced-motion'); }, options);
+    root.dataset.introState = 'pending';
+    root.hidden = false;
+  })();
+</script>
+<style>
+  .signature-intro { position: fixed; inset: 0; z-index: 200; overflow: clip; isolation: isolate; pointer-events: none; }
+  .signature-intro[hidden] { display: none; pointer-events: none; }
+  .signature-intro__visual { position: absolute; inset: 0; background: #f5f4f0; pointer-events: auto; }
+  .signature-intro__center { position: absolute; left: 50%; top: 50%; width: clamp(136px, 22vmin, 208px); aspect-ratio: 1; transform: translate(-50%, -50%); }
+  .signature-intro__center :global(svg) { display: block; width: 100%; height: auto; overflow: visible; }
+  .signature-intro[data-intro-state='pending'] .signature-intro__center { visibility: hidden; }
+  .signature-intro__skip { pointer-events: auto; position: absolute; right: clamp(20px, 4vw, 56px); bottom: max(24px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 18px; border: 0; padding: 12px 0 12px 12px; background: transparent; color: #16140f; font-family: var(--display); font-size: 12px; }
+  .signature-intro__skip span { font-size: 17px; }
+  @media (prefers-reduced-motion: reduce) { .signature-intro { display: none; pointer-events: none; } }
+</style>

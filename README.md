@@ -15,8 +15,8 @@ Abrir la dirección que muestra Astro en la terminal.
 ## Estructura
 
 - `web/`: proyecto Astro con TypeScript, Tailwind CSS y GSAP.
-- `suplio-horizontal-claro.*` y `suplio-horizontal-oscuro.*`: logos horizontales originales para cada fondo.
-- `Suplio-Identidad-Visual/`: identidad visual vigente, isotipos y guía.
+- `Suplio-Identidad-Visual/logos/`: originales SVG/PNG del isotipo y de los logos horizontales para cada fondo.
+- `Suplio-Identidad-Visual/`: identidad visual vigente y guía; `vistas-previas/` contiene la imagen de presentación original.
 - `Suplio-Identidad-Visual/referencias/`: respaldo histórico; no usar como identidad vigente.
 
 Ver [la documentación de la web](web/README.md) para compilar, revisar producción y ejecutar las verificaciones. [QA.md](web/QA.md) registra las pruebas locales realizadas; las capturas y los informes dentro de `test-results/` son artefactos locales ignorados por Git.

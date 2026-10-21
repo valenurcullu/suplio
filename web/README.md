@@ -24,10 +24,10 @@ npm run preview
 - `src/sections/`: composición de cada sección.
 - `src/styles/global.css`: paleta, tipografías, responsive y estados.
 - `src/scripts/main.ts`: navegación accesible y motion adaptativo.
-- `public/brand/`: copias exactas de los SVG originales. Los archivos de la raíz y `Suplio-Identidad-Visual/` permanecen intactos.
+- `public/brand/`: SVG que usa la web, copias exactas de los originales en `../Suplio-Identidad-Visual/logos/`. Las rutas públicas `/brand/` se mantienen.
 - `BrandMark.astro` usa los trazados originales para animar cada pieza. Solo se omiten los metadatos en el HTML emitido.
 - Las fuentes se sirven localmente desde los paquetes Fontsource.
-- `public/og.png`: pieza social derivada del logo original. Regenerar con `node scripts/generate-og.mjs`.
+- `public/images/og.png`: pieza social derivada del logo original. Regenerar con `node scripts/generate-og.mjs`.
 
 Contacto autorizado: `hola@suplio.ar`. Dominio previsto: `https://suplio.ar/`.
 

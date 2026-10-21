@@ -1,7 +1,8 @@
 export const services = [
   { number: '01', title: 'Diseño y\ndesarrollo web', tag: 'Una presencia a tu altura.', description: 'Sitios institucionales y experiencias digitales que muestran quién sos, qué hacés y por qué elegirte.', examples: 'Webs corporativas · Rediseños · Experiencias digitales', diagram: 'web' },
   { number: '02', title: 'Aplicaciones y\nsoluciones a medida', tag: 'Herramientas que se adaptan a vos.', description: 'Aplicaciones internas, plataformas e integraciones pensadas para la forma de trabajar de tu empresa.', examples: 'Herramientas internas · Plataformas · Integraciones', diagram: 'app' },
-  { number: '03', title: 'Automatización\nde procesos', tag: 'Menos tareas repetidas. Más tiempo.', description: 'Conectamos herramientas y simplificamos tareas administrativas. Sumamos IA cuando tiene sentido para el problema.', examples: 'Flujos de trabajo · Conexión de sistemas · IA aplicada', diagram: 'flow' },
+  { number: '03', title: 'Automatización\nde procesos', tag: 'Menos tareas repetidas. Más tiempo.', description: 'Conectamos herramientas y simplificamos tareas administrativas.', examples: 'Flujos de trabajo · Conexión de sistemas · Procesamiento de datos', diagram: 'flow' },
+  { number: '04', title: 'IA y\nagentes', tag: 'Inteligencia aplicada a tareas concretas.', description: 'Integramos inteligencia artificial a procesos y herramientas para que tu empresa pueda aprovecharla de manera concreta.', examples: 'Asistentes inteligentes · Agentes conectados a herramientas · Integración de IA', diagram: 'agent' },
 ] as const;
 
 export const steps = [

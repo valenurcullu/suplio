@@ -1,7 +1,71 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initServicePreviews } from './services';
+import { initSignatureIntro } from './intro';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// The signature owns the entrance. The hero receives only typography; its SVG stays assembled.
+function initHeroMotion(media: ReturnType<typeof gsap.matchMedia>) {
+  const hero = document.querySelector<HTMLElement>('.hero');
+  if (!hero) return { reveal: () => {}, finish: () => {} };
+  const waiting = Boolean(document.querySelector('#signature-intro:not([hidden])'));
+  hero.dataset.heroIntroduced = 'true';
+  hero.dataset.heroPhase = waiting ? 'pending' : 'complete';
+  let introComplete = !waiting;
+  let typography: gsap.core.Timeline | undefined;
+  let enableParallax: (() => void) | undefined;
+
+  media.add('(prefers-reduced-motion: no-preference)', () => {
+    if (!waiting || introComplete) return;
+    const targets = [...hero.querySelectorAll<HTMLElement>('[data-hero-line], .hero-description p, .hero-discover, .contact-link')];
+    const originals = targets.map(node => ({ node, style: node.getAttribute('style') }));
+    typography = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' }, onComplete: () => { hero.dataset.heroPhase = 'complete'; } });
+    typography.fromTo(hero.querySelectorAll('[data-hero-line]'),
+      { clipPath: 'inset(0 -0.08em 100% -0.08em)', y: 12 },
+      { clipPath: 'inset(-0.12em -0.08em -0.12em -0.08em)', y: 0,
+        duration: .5, stagger: .045, clearProps: 'clipPath,transform' }, 0);
+    typography.fromTo(hero.querySelector('.hero-description p'), { opacity: .9, y: 6 },
+      { opacity: 1, y: 0, duration: .32, clearProps: 'opacity,transform' }, .11);
+    typography.fromTo(hero.querySelector('.hero-discover'), { opacity: .85, y: 4 },
+      { opacity: 1, y: 0, duration: .3, clearProps: 'opacity,transform' }, .2);
+    typography.fromTo(hero.querySelector('.contact-link'), { opacity: .85, y: 4 },
+      { opacity: 1, y: 0, duration: .34, clearProps: 'opacity,transform' }, .26);
+    return () => {
+      typography = undefined;
+      gsap.set(targets, { clearProps: 'clipPath,opacity,transform' });
+      for (const { node, style } of originals) {
+        if (style === null) node.removeAttribute('style'); else node.setAttribute('style', style);
+      }
+    };
+  });
+
+  media.add({ desktop: '(min-width: 900px)', motion: '(prefers-reduced-motion: no-preference)' }, context => {
+    if (!context.conditions?.desktop || !context.conditions?.motion) return;
+    const parallax = gsap.fromTo(hero.querySelector('.hero-mark'), { y: 0 }, {
+      y: -8, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: .45 },
+    });
+    const trigger = parallax.scrollTrigger;
+    const enable = () => { trigger?.enable(false, true); };
+    enableParallax = enable;
+    if (!introComplete) trigger?.disable(false);
+    return () => { if (enableParallax === enable) enableParallax = undefined; };
+  });
+
+  return {
+    reveal: () => {
+      if (introComplete) return;
+      hero.dataset.heroPhase = 'reveal';
+      typography?.play(0);
+    },
+    finish: () => {
+      introComplete = true;
+      typography?.progress(1).pause();
+      hero.dataset.heroPhase = 'complete';
+      enableParallax?.();
+    },
+  };
+}
 
 function initSite() {
   const header = document.querySelector<HTMLElement>('[data-header]');
@@ -41,16 +105,12 @@ function initSite() {
   updateHeader();
   window.addEventListener('scroll', updateHeader, { ...options, passive: true });
 
+  const heroMotion = initHeroMotion(media);
+  const disposeIntro = initSignatureIntro({ onReveal: heroMotion.reveal, onFinish: heroMotion.finish });
+  initServicePreviews(media);
+
   // All content is visible in the base HTML. Enhancement never gates access to it.
   media.add('(prefers-reduced-motion: no-preference)', context => {
-    const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    intro.from('[data-hero-line]', { clipPath: 'inset(0 0 100% 0)', y: 18, duration: .9, stagger: .1 });
-    intro.from('.hero-description, .hero-discover', { opacity: 0, y: 12, duration: .55, stagger: .08 }, '-=.45');
-    const heroPaths = document.querySelectorAll('.hero-mark path');
-    if (heroPaths.length === 2) {
-      intro.from(heroPaths[0], { x: -14, y: -5, duration: 1.1 }, 0);
-      intro.from(heroPaths[1], { x: 14, y: 5, duration: 1.1 }, .08);
-    }
     document.querySelectorAll<HTMLElement>('[data-reveal]').forEach(element => {
       // Animate only after the element enters the viewport; unreached content stays readable.
       ScrollTrigger.create({ trigger: element, start: 'top 91%', once: true, onEnter: () => {
@@ -77,7 +137,7 @@ function initSite() {
   document.fonts.ready.then(refresh);
   window.addEventListener('load', refresh, { ...options, once: true });
 
-  return () => { abort.abort(); media.revert(); closeMenu(); };
+  return () => { disposeIntro(); abort.abort(); media.revert(); closeMenu(); };
 }
 
 let dispose: (() => void) | undefined;
