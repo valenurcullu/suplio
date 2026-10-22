@@ -2,9 +2,11 @@
 
 Home institucional estática en Astro, TypeScript, Tailwind CSS y GSAP.
 
+Preparación de lanzamiento: [LAUNCH.md](LAUNCH.md). Verificación actual: [LAUNCH-QA.md](LAUNCH-QA.md). Auditoría editorial pendiente de aprobación: [COPY-AUDIT.md](COPY-AUDIT.md).
+
 ## Desarrollo
 
-Requiere Node compatible con la versión de Astro instalada (ver `package-lock.json`).
+Requiere Node >=22.22.0 según la versión de Astro instalada. La revisión local de lanzamiento se ejecutó con Node 24.15.0.
 
 ```sh
 npm ci
@@ -33,7 +35,7 @@ Contacto autorizado: `hola@suplio.ar`. Dominio previsto: `https://suplio.ar/`.
 
 ## Proyecto pendiente
 
-Naves del Sur está identificado como caso en preparación. El espacio visual es un placeholder explícito; no representa una captura del proyecto. Antes de publicar, incorporar material y alcance autorizados, o retirar temporalmente el caso y su enlace de navegación. No hay resultados, testimonios ni métricas inventados.
+Naves del Sur es el primer caso autorizado del portfolio, con cuatro capturas reales generadas con Playwright y optimizadas para web. Contenido en `src/data/projects.ts` y presentación en `ProjectCase.astro`. Ver [PORTFOLIO-QA.md](PORTFOLIO-QA.md) para capturas, créditos y pruebas. Pyme Protegida tiene autorización del propietario y del diseñador para presentarse bajo Suplio; su incorporación queda para una próxima etapa, con selección de piezas del PDF y revisión previa de los elementos de Walrus. Ver [definición vigente](PORTFOLIO-PROPOSAL.md). No tiene placeholder visible. No hay resultados, testimonios ni métricas inventados.
 
 ## Verificación
 

@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Arrow from '../components/Arrow.astro';
+---
+<BaseLayout title="Consulta enviada — Suplio" description="Gracias por contactar a Suplio. Sigamos conversando sobre tu proyecto." confirmation>
+  <section class="confirmation shell" aria-labelledby="confirmation-title">
+    <a class="confirmation-logo" href="/" aria-label="Suplio, inicio"><img src="/brand/suplio-horizontal-claro.svg" width="378" height="120" alt="Suplio" /></a>
+    <span class="eyebrow"><span class="section-dot" /> Sigamos conversando</span>
+    <h1 id="confirmation-title">Gracias por<br />escribirnos<span class="orange-period">.</span></h1>
+    <p>Tu consulta fue enviada. Vamos a revisar lo que nos contaste para conversar sobre tu proyecto.</p>
+    <p>Si necesitás sumar algo, escribinos a <a href="mailto:hola@suplio.ar">hola@suplio.ar</a>.</p>
+    <a class="confirmation-back" href="/">Volver a Suplio <Arrow /></a>
+  </section>
+</BaseLayout>
+<style>
+  .confirmation { min-height: 75svh; padding-block: 48px 96px; }
+  .confirmation-logo { display: block; width: 132px; margin-bottom: 80px; }
+  h1 { font-size: clamp(46px, 7vw, 100px); letter-spacing: -.065em; line-height: 1.04; margin-block: 28px; }
+  p { font-size: 15px; line-height: 1.8; max-width: 510px; margin-top: 16px; color: var(--muted); }
+  p a { text-decoration: underline; text-underline-offset: 4px; }
+  .confirmation-back { display: inline-flex; align-items: center; gap: 32px; font-family: var(--display); margin-top: 36px; border-bottom: 1px solid var(--line); padding-block: 14px; }
+  .confirmation-back :global(.arrow) { width: 20px; color: var(--ink); }
+</style>

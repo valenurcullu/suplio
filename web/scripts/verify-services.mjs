@@ -147,13 +147,18 @@ try {
   assert.deepEqual(activeAxe.violations.map(v => v.id), []);
   results.interactions.push('Focus, Enter and Space replay; enabled controls pass axe');
 
+  // Measure normal demo use before preference changes, resizes and the synthetic
+  // page teardown below intentionally remove/recreate layout (including the pin).
+  results.interactionCLS = await page.evaluate(() => window.__servicesAudit.cls);
+  assert(results.interactionCLS < .01, `Layout shifts during demo use: ${results.interactionCLS}`);
+
   const agent = page.locator('[data-service-demo="agent"]');
   await center(agent);
   await agent.focus();
   await expect(agent).toHaveAttribute('data-demo-state', 'playing');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   for (const button of await buttons.all()) await expect(button).toBeDisabled();
-  assert.deepEqual(await styles(page), finalStyles, 'Reduced motion must restore complete SVG geometry and colors');
+  await expect.poll(() => styles(page), { message: 'Reduced motion must restore complete SVG geometry and colors' }).toEqual(finalStyles);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await allIdle(page);
   await expect(agent).toBeEnabled();
@@ -181,7 +186,6 @@ try {
   results.interactions.push('Astro teardown and reinitialization dispose observers, controls and timelines');
   results.motion = await page.evaluate(() => window.__servicesAudit);
   assert.equal(results.motion.maxActive, 1);
-  assert(results.motion.cls < .01, `Layout shifts: ${results.motion.cls}`);
   await page.context().close();
 
   const touch = await createPage({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, reducedMotion: 'no-preference' });

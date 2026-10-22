@@ -19,6 +19,6 @@ Abrir la dirección que muestra Astro en la terminal.
 - `Suplio-Identidad-Visual/`: identidad visual vigente y guía; `vistas-previas/` contiene la imagen de presentación original.
 - `Suplio-Identidad-Visual/referencias/`: respaldo histórico; no usar como identidad vigente.
 
-Ver [la documentación de la web](web/README.md) para compilar, revisar producción y ejecutar las verificaciones. [QA.md](web/QA.md) registra las pruebas locales realizadas; las capturas y los informes dentro de `test-results/` son artefactos locales ignorados por Git.
+Ver [la documentación de la web](web/README.md) para compilar, revisar producción y ejecutar las verificaciones. [LAUNCH.md](web/LAUNCH.md) detalla la preparación comercial y la configuración de Netlify; [LAUNCH-QA.md](web/LAUNCH-QA.md) registra la verificación actual y [COPY-AUDIT.md](web/COPY-AUDIT.md) contiene las propuestas de textos pendientes de aprobación. [QA.md](web/QA.md) conserva el historial anterior. Las capturas y los informes dentro de `test-results/` son artefactos locales ignorados por Git.
 
-El caso Naves del Sur conserva un placeholder explícito hasta incorporar material autorizado. La publicación y la configuración de hosting y dominio quedan pendientes.
+El caso Naves del Sur está implementado con capturas reales autorizadas; ver [PORTFOLIO-QA.md](web/PORTFOLIO-QA.md). La publicación y la configuración de hosting y dominio quedan pendientes.

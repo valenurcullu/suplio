@@ -1,0 +1,20 @@
+---
+import type { ProjectImage } from '../data/projects';
+interface Props { image: ProjectImage; projectId: string; sizes: string; }
+const { image, projectId, sizes } = Astro.props;
+const root = `/projects/${projectId}/${image.file}`;
+const source = `${root}-${image.width}.webp`;
+---
+<figure>
+  <img src={source} srcset={image.widths.map(width => `${root}-${width}.webp ${width}w`).join(', ')} sizes={sizes} width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" />
+  <figcaption><span>{image.label}</span><a href={source} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar captura de ${image.label.slice(4)} (abre en otra pestaña)`}>Ampliar <span aria-hidden="true">↗</span></a></figcaption>
+</figure>
+<style>
+  figure { margin: 0; min-width: 0; }
+  img { width: 100%; height: auto; background: #25231e; }
+  figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; color: #bcb8ac; font-family: var(--display); font-size: 10px; line-height: 1.5; letter-spacing: .045em; text-transform: uppercase; }
+  figcaption a { min-height: 24px; padding-block: 5px; margin-block: -5px; white-space: nowrap; }
+  figcaption a:hover { color: var(--paper); text-decoration: underline; text-underline-offset: 4px; }
+  figcaption a span { color: var(--orange); margin-left: 8px; }
+  @media (max-width: 600px) { figcaption { font-size: 9px; margin-top: 12px; } }
+</style>

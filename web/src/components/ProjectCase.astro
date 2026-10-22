@@ -1,0 +1,76 @@
+---
+import type { PortfolioProject } from '../data/projects';
+import ProjectImage from './ProjectImage.astro';
+interface Props { project: PortfolioProject; }
+const { project } = Astro.props;
+---
+<article class="project-case" aria-labelledby={`${project.id}-title`}>
+  <header class="case-heading">
+    <span class="case-number eyebrow">{project.number} / Caso de estudio</span>
+    <div class="case-name"><h3 id={`${project.id}-title`}>{project.client}</h3><p>{project.title}</p></div>
+    <p class="case-category">{project.category}<span>{project.industry}</span></p>
+  </header>
+  <div class="case-cover" data-project-stage>
+    <div class="project-stage__grid" aria-hidden="true"></div>
+    <ProjectImage image={project.cover} projectId={project.id} sizes="(max-width: 600px) calc(100vw - 48px), (max-width: 900px) calc(100vw - 96px), min(1328px, 100vw - 208px)" />
+  </div>
+  <div class="case-details">
+    {project.details.map(image => <ProjectImage image={image} projectId={project.id} sizes="(max-width: 600px) calc(100vw - 48px), (max-width: 900px) calc(50vw - 64px), 60vw" />)}
+  </div>
+  <div class:list={['case-end', { 'case-end--portrait': project.portrait }]}>
+    {project.portrait && <div class="case-portrait"><ProjectImage image={project.portrait} projectId={project.id} sizes="(max-width: 600px) min(330px, 100vw - 48px), 290px" /></div>}
+    <div class="case-scope">
+      <h4 class="eyebrow">{project.scopeTitle}</h4>
+      <p class="case-description">{project.description}</p>
+      <p class="case-credit">{project.credit}</p>
+      {project.url && <a class="case-visit" href={project.url} target="_blank" rel="noopener noreferrer" aria-label={`Visitar sitio de ${project.client} (abre en otra pestaña)`}>Visitar sitio <span aria-hidden="true">↗</span></a>}
+    </div>
+  </div>
+</article>
+<style>
+  .project-case { border-top: 1px solid #454138; padding-top: 28px; }
+  .project-case + .project-case { margin-top: 120px; }
+  .case-heading { display: grid; grid-template-columns: 1fr 2fr 1.15fr; align-items: start; gap: 28px; margin-bottom: 44px; }
+  .case-number { color: #bcb8ac; padding-top: 10px; font-size: 10px; }
+  h3 { font-size: clamp(28px, 3.4vw, 52px); letter-spacing: -.055em; line-height: 1.1; }
+  .case-name p { color: #bcb8ac; font-size: 13px; line-height: 1.5; margin-top: 12px; }
+  .case-category { font-size: 12px; line-height: 1.7; padding-top: 7px; }
+  .case-category span { display: block; color: #bcb8ac; font-size: 11px; margin-top: 5px; }
+  .case-cover { position: relative; isolation: isolate; overflow: hidden; background: #25231e; border: 1px solid #454138; padding: clamp(20px, 3.3vw, 48px); }
+  .case-cover .project-stage__grid { z-index: -1; }
+  .case-details { display: grid; grid-template-columns: 1.35fr 1fr; align-items: start; gap: clamp(28px, 4vw, 64px); margin-top: 64px; }
+  .case-details > :global(figure:nth-child(even)) { margin-top: 100px; }
+  .case-end { margin-top: 88px; }
+  .case-end--portrait { display: grid; grid-template-columns: 1fr 1.2fr; align-items: center; gap: 12%; padding-inline: 8%; }
+  .case-portrait { width: min(100%, 290px); justify-self: center; }
+  .case-scope { border-top: 1px solid #454138; padding-top: 28px; }
+  h4 { margin: 0 0 24px; color: #bcb8ac; font-size: 10px; }
+  .case-description { font-size: clamp(16px, 1.5vw, 20px); line-height: 1.7; letter-spacing: -.015em; }
+  .case-credit { margin-top: 24px; color: #bcb8ac; font-size: 11px; line-height: 1.7; }
+  .case-visit { display: flex; justify-content: space-between; align-items: center; gap: 40px; width: fit-content; min-height: 48px; margin-top: 32px; border-bottom: 1px solid #bcb8ac; font-family: var(--display); font-size: 16px; }
+  .case-visit span { color: var(--orange); font-size: 26px; }
+  .case-visit:hover { border-color: var(--orange); }
+  @media (max-width: 1000px) {
+    .case-heading { grid-template-columns: 1fr 2.5fr; }
+    .case-category { grid-column: 2; padding-top: 0; }
+    .case-details { margin-top: 40px; }
+    .case-details > :global(figure:nth-child(even)) { margin-top: 64px; }
+    .case-end--portrait { padding-inline: 0; gap: 8%; }
+  }
+  @media (max-width: 600px) {
+    .case-heading { display: block; margin-bottom: 28px; }
+    .case-number { display: block; padding-top: 0; margin-bottom: 24px; }
+    h3 { font-size: clamp(29px, 8vw, 40px); }
+    .case-category { margin-top: 22px; }
+    .case-cover { padding: 0; border: 0; background: none; overflow: visible; }
+    .case-cover .project-stage__grid { display: none; }
+    .case-details { display: grid; grid-template-columns: 1fr; gap: 36px; margin-top: 36px; }
+    .case-details > :global(figure:nth-child(even)) { margin-top: 0; }
+    .case-end--portrait { display: flex; flex-direction: column; align-items: stretch; gap: 48px; }
+    .case-end { margin-top: 44px; }
+    .case-portrait { width: min(100%, 330px); align-self: center; }
+    .case-scope { padding-top: 24px; }
+    .case-description { font-size: 17px; }
+    .case-visit { width: 100%; }
+  }
+</style>

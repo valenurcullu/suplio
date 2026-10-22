@@ -1,15 +1,8 @@
 ---
-import { featuredProject as project } from '../data/content';
-import BrandMark from '../components/BrandMark.astro';
+import { projects } from '../data/projects';
+import ProjectCase from '../components/ProjectCase.astro';
 ---
 <section id="proyectos" class="projects section-space" aria-labelledby="projects-title"><div class="shell">
-  <div class="section-heading section-heading--dark"><span class="eyebrow"><span class="section-dot" /> 02 / Proyectos</span><h2 id="projects-title" data-reveal>Del problema<br />a lo concreto.</h2><p>Un espacio para mostrar<br />lo que construimos.</p></div>
-  <article class="project-feature">
-    <div class="project-stage" data-project-stage>
-      <div class="project-stage__grid" aria-hidden="true"></div><span class="project-stage__corner eyebrow">Suplio / Archivo de proyectos</span>
-      <div class="project-placeholder"><BrandMark light /><span class="project-placeholder__title">El trabajo.<br />Próximamente, acá.</span><span class="pending-label"><i class="status-dot" /> {project.pendingLabel}</span></div>
-      <span class="project-stage__number" aria-hidden="true">01</span><span class="project-stage__bottom eyebrow">Espacio reservado para material autorizado</span>
-    </div>
-    <div class="project-caption"><div><h3>{project.name}</h3><p>{project.category}</p></div><span class="project-status eyebrow">Caso en preparación <span aria-hidden="true">↗</span></span></div>
-  </article>
+  <div class="section-heading section-heading--dark"><span class="eyebrow"><span class="section-dot" /> 03 / Proyectos</span><h2 id="projects-title" data-reveal>Del problema<br />a lo concreto.</h2><p>Un espacio para mostrar<br />lo que construimos.</p></div>
+  {projects.map(project => <ProjectCase project={project} />)}
 </div></section>

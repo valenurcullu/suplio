@@ -8,7 +8,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview --host 127.0.0.1",
     "check": "astro check",
-    "test:browser": "node scripts/verify.mjs"
+    "test:browser": "node scripts/verify.mjs",
+    "test:contact": "node scripts/verify-contact.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",

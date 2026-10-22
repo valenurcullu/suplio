@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initServicePreviews } from './services';
 import { initSignatureIntro } from './intro';
+import { initProcessSteps } from './process';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -108,6 +109,7 @@ function initSite() {
   const heroMotion = initHeroMotion(media);
   const disposeIntro = initSignatureIntro({ onReveal: heroMotion.reveal, onFinish: heroMotion.finish });
   initServicePreviews(media);
+  initProcessSteps(media);
 
   // All content is visible in the base HTML. Enhancement never gates access to it.
   media.add('(prefers-reduced-motion: no-preference)', context => {
@@ -130,7 +132,7 @@ function initSite() {
       timeline.fromTo(paths[0], { x: -37, y: -12 }, { x: 0, y: 0, ease: 'none' }, 0);
       timeline.fromTo(paths[1], { x: 37, y: 12 }, { x: 0, y: 0, ease: 'none' }, 0);
     }
-    gsap.fromTo('.project-stage__grid', { y: -14, scale: 1.12 }, { y: 14, scale: 1.03, ease: 'none', scrollTrigger: { trigger: '[data-project-stage]', start: 'top bottom', end: 'bottom top', scrub: .8 } });
+    if (document.querySelector('[data-project-stage]')) gsap.fromTo('.project-stage__grid', { y: -14, scale: 1.12 }, { y: 14, scale: 1.03, ease: 'none', scrollTrigger: { trigger: '[data-project-stage]', start: 'top bottom', end: 'bottom top', scrub: .8 } });
   });
 
   const refresh = () => { if (!abort.signal.aborted) ScrollTrigger.refresh(); };

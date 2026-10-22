@@ -1,0 +1,60 @@
+---
+import { whatsappUrl } from '../data/contact';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+const { floating = false } = Astro.props;
+---
+{whatsappUrl && <a href={whatsappUrl} class:list={[floating ? 'whatsapp-floating' : 'whatsapp-inline']} data-whatsapp-floating={floating || undefined} target="_blank" rel="noopener noreferrer" aria-label={floating ? 'Conversar con Suplio por WhatsApp (abre en otra pestaña)' : 'También podés escribirnos por WhatsApp (abre en otra pestaña)'}><WhatsAppIcon />{!floating && <span>También podés escribirnos por WhatsApp <span aria-hidden="true">↗</span></span>}</a>}
+{whatsappUrl && floating && <script>
+  function initWhatsApp() {
+    const link = document.querySelector<HTMLAnchorElement>('[data-whatsapp-floating]');
+    if (!link) return () => {};
+    const listeners = new AbortController();
+    const options = { signal: listeners.signal };
+    // Only an actual interactive control can suspend the shortcut. Section boundaries,
+    // headings and paragraphs never affect visibility, and GSAP does not own this link.
+    const controls = [...document.querySelectorAll<HTMLElement>('main a, main button, main input:not([type="hidden"]), main select, main textarea, footer a')];
+    let frame = 0;
+    const sync = () => {
+      const style = getComputedStyle(link);
+      const right = innerWidth - parseFloat(style.right);
+      const bottom = innerHeight - parseFloat(style.bottom);
+      const overlaps = controls.some(element => {
+        if (!element.getClientRects().length) return false;
+        const rect = element.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.right > right - 48 && rect.left < right && rect.bottom > bottom - 48 && rect.top < bottom;
+      });
+      const active = document.activeElement;
+      const editing = active instanceof HTMLElement && active.matches('input, textarea, select');
+      const keyboardOpen = editing && Boolean(window.visualViewport && window.visualViewport.height < innerHeight * .8);
+      // Never remove a keyboard-focused shortcut from the focus order during scroll.
+      link.hidden = (overlaps || keyboardOpen) && active !== link;
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(() => { frame = 0; sync(); }); };
+    document.addEventListener('focusin', schedule, options);
+    document.addEventListener('focusout', schedule, options);
+    window.addEventListener('scroll', schedule, { ...options, passive: true });
+    window.addEventListener('resize', schedule, { ...options, passive: true });
+    window.visualViewport?.addEventListener('resize', schedule, { ...options, passive: true });
+    sync();
+    return () => { listeners.abort(); cancelAnimationFrame(frame); link.hidden = false; };
+  }
+
+  let dispose: (() => void) | undefined;
+  const boot = () => { dispose?.(); dispose = initWhatsApp(); };
+  boot();
+  document.addEventListener('astro:before-swap', () => { dispose?.(); dispose = undefined; });
+  document.addEventListener('astro:page-load', () => { if (!dispose) boot(); });
+</script>}
+<style>
+  .whatsapp-inline { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; line-height: 1.7; }
+  .whatsapp-inline span span { color: var(--ink); }
+  .whatsapp-inline:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .whatsapp-floating { position: fixed; right: max(8px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 25; width: 48px; height: 48px; display: grid; place-items: center; color: var(--paper); background: var(--ink); border: 1px solid var(--paper); border-radius: 50%; transition: transform .2s; }
+  .whatsapp-floating[hidden] { display: none; }
+  :global(body:has(#signature-intro:not([hidden]))) .whatsapp-floating,
+  :global(body.menu-open) .whatsapp-floating { visibility: hidden; pointer-events: none; }
+  .whatsapp-floating::after { content: ''; position: absolute; top: 1px; right: 1px; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+  .whatsapp-floating:hover { transform: translateY(-2px); }
+  .whatsapp-floating:focus-visible { outline-color: var(--ink); }
+  @media (max-width: 899px) { .whatsapp-floating { right: 12px; bottom: max(16px, env(safe-area-inset-bottom)); } }
+</style>
