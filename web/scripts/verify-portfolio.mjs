@@ -9,7 +9,9 @@ const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const results = { widths: [], assets: [], errors: [] };
 await mkdir('test-results', { recursive: true });
 try {
-  for (const file of await readdir('public/projects/naves-del-sur')) {
+  for (const entry of await readdir('public/projects/naves-del-sur', { withFileTypes: true })) {
+    if (!entry.isFile()) continue; // Motion delivery lives in its own subdirectory.
+    const file = entry.name;
     const path = `public/projects/naves-del-sur/${file}`;
     const { width, height } = await sharp(path).metadata();
     const { size } = await stat(path);

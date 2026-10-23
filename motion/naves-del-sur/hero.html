@@ -1,0 +1,63 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="assets/estilos/bootstrap.min.css"><link rel="stylesheet" href="assets/fonts/roboto.css"><link rel="stylesheet" href="assets/fonts/icons.css"><link rel="stylesheet" href="assets/estilos/style.css"><style>html{scroll-behavior:auto}html,body{margin:0;overflow:hidden}*,*::before,*::after{animation:none!important;transition:none!important}body{min-height:100vh}a,button{pointer-events:none} .hero-section{background:none} .hero-photo{position:absolute;inset:0;background:url('assets/imagenes/indPetrolera.webp') center/cover} .line-mask{display:block;overflow:clip;padding-block:2px;margin-block:-2px} .line-inner{display:block;will-change:transform} </style></head><body><header class="custom-header">
+  <nav class="custom-navbar" aria-label="Navegación principal">
+    <a href="index.html" class="custom-logo" aria-label="Ir al inicio - Naves Del Sur">
+      <!-- ✅ SEO: alt descriptivo en logo -->
+      <img src="assets/imagenes/naves3.png" alt="Naves Del Sur - Fábrica de Bombas a Tornillo" class="logo-img" width="160" height="50">
+    </a>
+    <ul class="custom-nav-links" id="navLinks">
+      <li><a href="index.html" class="active-link" aria-current="page">Inicio</a></li>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li class="dropdown-item">
+        <a href="productos.html">
+          Productos <i class="fas fa-chevron-down ms-1" style="font-size: 0.7em;" aria-hidden="true"></i>
+        </a>
+        <ul class="dropdown-menu-hover">
+          <li><a href="./categorias/bombas-industriales.html">Bombas Industriales</a></li>
+          <li><a href="./categorias/bombas-petroleras.html">Bombas Petroleras</a></li>
+          <li><a href="./categorias/bombas-sanitarias.html">Bombas Sanitarias</a></li>
+          <li><a href="./categorias/bombas-dosificadoras.html">Bombas Dosificadoras</a></li>
+        </ul>
+      </li>
+      <li><a href="repuestos.html">Repuestos</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="clientes.html">Clientes</a></li>
+      <li><a href="contacto.html" class="btn-nav-contacto">Contacto</a></li>
+      <li class="dropdown-item">
+        <a href="#" class="d-flex align-items-center" aria-label="Cambiar idioma">
+          <i class="fas fa-globe me-2" aria-hidden="true"></i> ES <i class="fas fa-chevron-down ms-1" aria-hidden="true"></i>
+        </a>
+        <ul class="dropdown-menu-hover">
+          <li><a href="#" class="fw-bold" aria-current="true">Español</a></li>
+          <li><a href="./en/index.html" hreflang="en">English</a></li>
+        </ul>
+      </li>
+    </ul>
+    <button class="custom-menu-btn" id="mobile-menu" aria-label="Abrir menú" aria-expanded="false">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
+  </nav>
+</header><main><section class="hero-section text-white" aria-labelledby="hero-heading">
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="container position-relative z-1">
+      <div class="row">
+        <div class="col-lg-7">
+          <div class="hero-announcement mb-3" data-aos="fade-right" data-aos-delay="100">
+            <span class="badge rounded-pill bg-primary px-3 py-2">
+              <i class="fas fa-rocket me-2" aria-hidden="true"></i> Nueva Línea NES: Misma calidad, mejor precio
+            </span>
+          </div>
+          <!-- ✅ SEO: H1 con keyword "bombas a tornillo" -->
+          <h1 id="hero-heading" class="display-4 fw-bold mb-3" data-aos="fade-down" data-aos-duration="1000">
+            Fabricantes de Bombas a Tornillo para la Industria
+          </h1>
+          <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+            Como la fábrica más grande de <strong>bombas a tornillo</strong> de la región, garantizamos respuesta inmediata y stock permanente para potenciar su industria. Combinamos infraestructura de primer nivel con más de 30 años de experiencia en bombeo de líquidos viscosos: petróleo, barro, alimentos y más.
+          </p>
+          <div class="d-flex flex-wrap gap-3" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
+            <a href="productos.html" class="btn btn-primary btn-lg">Ver Catálogo de Bombas</a>
+            <a href="contacto.html" class="btn btn-outline-light btn-lg">Cotizar Ahora</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section></main><script>const hero=document.querySelector('.hero-section');if(hero){const photo=document.createElement('div');photo.className='hero-photo';hero.prepend(photo);}document.querySelectorAll('[loading]').forEach(img=>img.loading='eager');</script></body></html>

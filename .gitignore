@@ -3,3 +3,6 @@
 .env.*
 !.env.example
 .aws/
+
+# Local video production: masters, historical versions and intermediates
+/.production/

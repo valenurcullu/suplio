@@ -1,0 +1,8 @@
+# Generated production artifacts belong in /.production/.
+frames/
+review/
+output/
+render-report.json
+previous-versions-baseline.json
+v1-baseline.json
+*.log
