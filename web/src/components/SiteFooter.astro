@@ -1,5 +1,6 @@
 ---
+import { stripBase, withBase } from '../data/deploy';
 import Arrow from './Arrow.astro';
-const home = Astro.url.pathname === '/' ? '' : '/';
+const home = stripBase(Astro.url.pathname) === '/' ? '' : withBase('/');
 ---
-<footer class="site-footer"><div class="shell footer-inner"><a href={`${home}#inicio`} aria-label="Suplio, volver al inicio"><img src="/brand/suplio-horizontal-oscuro.svg" width="378" height="120" alt="Suplio" loading="lazy" /></a><span>Soluciones tecnológicas, con criterio.</span><a href={`${home}#inicio`} class="back-top">Volver arriba <Arrow /></a><div class="footer-bottom"><span>© {new Date().getFullYear()} Suplio</span><span>Desde Argentina.</span><a href="https://suplio.ar/">suplio.ar</a></div></div></footer>
+<footer class="site-footer"><div class="shell footer-inner"><a href={`${home}#inicio`} aria-label="Suplio, volver al inicio"><img src={withBase('/brand/suplio-horizontal-oscuro.svg')} width="378" height="120" alt="Suplio" loading="lazy" /></a><span>Soluciones tecnológicas, con criterio.</span><a href={`${home}#inicio`} class="back-top">Volver arriba <Arrow /></a><div class="footer-bottom"><span>© {new Date().getFullYear()} Suplio</span><span>Desde Argentina.</span><a href="https://suplio.ar/">suplio.ar</a></div></div></footer>

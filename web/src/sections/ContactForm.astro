@@ -1,6 +1,9 @@
 ---
 import Arrow from '../components/Arrow.astro';
 import WhatsAppLink from '../components/WhatsAppLink.astro';
+import { isStaging, withBase } from '../data/deploy';
+// Staging (GitHub Pages) has no form backend: no Netlify attributes and no real submissions.
+const netlify = isStaging ? {} : { 'data-netlify': 'true', 'netlify-honeypot': 'bot-field' };
 ---
 <section id="consulta" class="inquiry shell section-space" aria-labelledby="inquiry-title">
   <div class="inquiry-intro">
@@ -9,9 +12,10 @@ import WhatsAppLink from '../components/WhatsAppLink.astro';
     <p>No hace falta que tengas todo definido. Contanos qué tenés en mente y vemos cómo podemos ayudarte.</p>
     <WhatsAppLink />
   </div>
-  <form class="inquiry-form" name="suplio-consultas" method="POST" action="/consulta-recibida/" data-netlify="true" netlify-honeypot="bot-field" aria-labelledby="inquiry-title" aria-describedby="inquiry-required inquiry-privacy" data-contact-form>
+  <form class="inquiry-form" name="suplio-consultas" method="POST" action={withBase('/consulta-recibida/')} {...netlify} data-staging={isStaging ? '' : undefined} aria-labelledby="inquiry-title" aria-describedby="inquiry-required inquiry-privacy" data-contact-form>
     <input type="hidden" name="form-name" value="suplio-consultas" />
     <p hidden><label>No completar este campo: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+    {isStaging && <p class="inquiry-hint"><strong>Entorno de prueba:</strong> este formulario no envía consultas. Para escribirnos, usá <a href="mailto:hola@suplio.ar">hola@suplio.ar</a>.</p>}
     <p id="inquiry-required" class="inquiry-hint">Los campos con * son obligatorios.</p>
     <div class="inquiry-fields">
       <div class="inquiry-field"><label for="inquiry-name">Nombre y apellido <span aria-hidden="true">*</span></label><input id="inquiry-name" name="name" autocomplete="name" required maxlength="120" aria-describedby="inquiry-name-error" /><span id="inquiry-name-error" class="field-error" hidden></span></div>
@@ -21,7 +25,7 @@ import WhatsAppLink from '../components/WhatsAppLink.astro';
       <div class="inquiry-field inquiry-field--wide"><label for="inquiry-message">Mensaje <span aria-hidden="true">*</span></label><textarea id="inquiry-message" name="message" rows="4" required maxlength="5000" aria-describedby="inquiry-message-error"></textarea><span id="inquiry-message-error" class="field-error" hidden></span></div>
     </div>
     <p id="inquiry-privacy" class="inquiry-privacy">Usamos tus datos para responder esta consulta y conversar sobre tu proyecto. El envío se procesa a través de Netlify Forms. Evitá incluir contraseñas o información sensible. Para consultar sobre tus datos, escribinos a <a href="mailto:hola@suplio.ar">hola@suplio.ar</a>.</p>
-    <div class="inquiry-actions"><button class="inquiry-submit" type="submit"><span data-submit-label>Enviar consulta</span><Arrow /></button><span class="inquiry-status" role="status" aria-live="polite" data-submit-status></span></div>
+    <div class="inquiry-actions"><button class="inquiry-submit" type="submit" disabled={isStaging}><span data-submit-label>Enviar consulta</span><Arrow /></button><span class="inquiry-status" role="status" aria-live="polite" data-submit-status></span></div>
     <p class="inquiry-feedback" role="alert" tabindex="-1" data-submit-error hidden></p>
     <noscript><p class="inquiry-hint">Al enviar, vas a ver la confirmación en una nueva página. Si aparece un error, volvé a este formulario o escribinos a <a href="mailto:hola@suplio.ar">hola@suplio.ar</a>.</p></noscript>
   </form>

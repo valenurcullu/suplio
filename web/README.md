@@ -43,4 +43,11 @@ Ver los resultados y límites de la revisión realizada en [QA.md](QA.md).
 
 Con el servidor de producción activo, `npm run test:browser` ejecuta verificaciones con Playwright y axe en 320, 390, 768, 1024 y 1440 px, menú por teclado, anclas, contenido sin JavaScript, movimiento reducido y limpieza al redimensionar. Requiere Google Chrome instalado. `QA_URL` permite usar otra dirección local. Capturas y resultados se guardan en `test-results/` (ignorado).
 
-Los puntajes Lighthouse solo deben reportarse después de medir la compilación real. Ninguna configuración de GitHub, Netlify ni DNS está aplicada. El build estático se genera en `dist/`.
+Los puntajes Lighthouse solo deben reportarse después de medir la compilación real. El build estático se genera en `dist/`.
+
+## Entornos
+
+- **Producción (Netlify):** `npm run build`, con base `/`. Netlify compila sin `PUBLIC_DEPLOY_TARGET`; el formulario usa Netlify Forms. Los deploys se controlan manualmente desde Netlify.
+- **Staging (GitHub Pages):** `.github/workflows/deploy-pages.yml` publica en https://valenurcullu.github.io/suplio/ con cada push a `main` (o manualmente desde Actions). Compila con `PUBLIC_DEPLOY_TARGET=github-pages`, que fija la base `/suplio/`, agrega `noindex`, omite el sitemap y deshabilita el envío del formulario.
+
+Para probar el build de staging en local: `PUBLIC_DEPLOY_TARGET=github-pages npm run build`. Las rutas a archivos de `public/` y páginas internas deben armarse con `withBase()` de `src/data/deploy.ts`.

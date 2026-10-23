@@ -1,8 +1,9 @@
 ---
 import type { ProjectImage } from '../data/projects';
+import { withBase } from '../data/deploy';
 interface Props { image: ProjectImage; projectId: string; sizes: string; }
 const { image, projectId, sizes } = Astro.props;
-const root = `/projects/${projectId}/${image.file}`;
+const root = withBase(`/projects/${projectId}/${image.file}`);
 const source = `${root}-${image.width}.webp`;
 ---
 <figure>

@@ -5,6 +5,9 @@ if (form) {
   const status = form.querySelector<HTMLElement>('[data-submit-status]')!;
   const feedback = form.querySelector<HTMLElement>('[data-submit-error]')!;
   const required = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]')];
+  const staging = form.hasAttribute('data-staging');
+  // Staging renders the button disabled for visitors without JavaScript; validation stays testable.
+  if (staging) submit.disabled = false;
   let sending = false;
   const validate = (field: HTMLInputElement | HTMLTextAreaElement) => {
     const error = document.getElementById(`${field.id}-error`)!;
@@ -38,6 +41,7 @@ if (form) {
       status.textContent = ''; form.removeAttribute('aria-busy');
     };
     try {
+      if (staging) throw new Error('staging-preview');
       if (import.meta.env.DEV || ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname)) {
         throw new Error('local-preview');
       }
@@ -52,7 +56,9 @@ if (form) {
       window.location.assign(form.action);
     } catch (error) {
       reset();
-      feedback.textContent = error instanceof Error && error.message === 'local-preview'
+      feedback.textContent = error instanceof Error && error.message === 'staging-preview'
+        ? 'Entorno de prueba: el formulario no envía consultas. Para escribirnos, usá hola@suplio.ar.'
+        : error instanceof Error && error.message === 'local-preview'
         ? 'Esta vista local no procesa envíos. Probá el formulario después de publicar en Netlify o escribinos a hola@suplio.ar.'
         : error instanceof Error && (error.name === 'TimeoutError' || error.name === 'TypeError')
           ? 'No pudimos confirmar el envío. Tus datos siguen acá. Para evitar repetir la consulta, podés escribirnos a hola@suplio.ar antes de reintentar.'

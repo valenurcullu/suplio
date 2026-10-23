@@ -1,0 +1,43 @@
+# Staging: publishes web/ to https://valenurcullu.github.io/suplio/ on every push to main.
+# Production stays on Netlify, which builds without PUBLIC_DEPLOY_TARGET (base "/").
+name: Deploy staging to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Sets site/base to /suplio/, adds noindex and disables real form submissions.
+      PUBLIC_DEPLOY_TARGET: github-pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Build and upload site
+        uses: withastro/action@v6
+        with:
+          path: ./web
+          node-version: 24
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
