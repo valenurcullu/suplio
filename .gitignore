@@ -6,3 +6,6 @@
 
 # Local video production: masters, historical versions and intermediates
 /.production/
+
+# Google Drive sync junk
+desktop.ini

@@ -106,9 +106,9 @@ export function createIdentityScene(root: HTMLElement, art: HTMLElement, mark: H
     raf=0;if(!visible||!pageVisible||disposed||failed)return;
     const dt=Math.min(.05,(now-last)/1000);last=now;
     if(assembled&&volume.value>=.9999){
-      // Same yaw + home-pitch motion as Claude, slowed for the editorial section.
-      angle+=dt*.3;const damping=1-Math.exp(-dt*6);mx+=(targetX-mx)*damping;my+=(targetY-my)*damping;
-      targetQuaternion.setFromEuler(new Euler(HOME.x+my,angle+mx,0));
+      // Bounded rotation preserves both silhouettes; never turn the mark edge-on.
+      angle+=dt*.24;const damping=1-Math.exp(-dt*6);mx+=(targetX-mx)*damping;my+=(targetY-my)*damping;
+      targetQuaternion.setFromEuler(new Euler(HOME.x+Math.sin(angle*.7)*.055+my,HOME.y+Math.sin(angle)*.25+mx,0));
     }
     draw();if(volume.value>0)raf=requestAnimationFrame(frame);else stop();
   }
@@ -124,7 +124,7 @@ export function createIdentityScene(root: HTMLElement, art: HTMLElement, mark: H
     if(failed||disposed)return;failed=true;tween?.kill();stop();host.style.opacity='0';mark.style.removeProperty('opacity');root.dataset.identity3d='fallback';
   }
   canvas.addEventListener('webglcontextlost',fail,{signal:events.signal});
-  art.addEventListener('pointermove',e=>{if(!pointer.matches)return;const r=art.getBoundingClientRect();targetX=Math.max(-1,Math.min(1,(e.clientX-r.left)/r.width*2-1))*.18;targetY=Math.max(-1,Math.min(1,(e.clientY-r.top)/r.height*2-1))*.12;},{signal:events.signal,passive:true});
+  art.addEventListener('pointermove',e=>{if(!pointer.matches)return;const r=art.getBoundingClientRect();targetX=Math.max(-1,Math.min(1,(e.clientX-r.left)/r.width*2-1))*.08;targetY=Math.max(-1,Math.min(1,(e.clientY-r.top)/r.height*2-1))*.06;},{signal:events.signal,passive:true});
   art.addEventListener('pointerleave',()=>{targetX=0;targetY=0;},{signal:events.signal,passive:true});
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible&&pageVisible){tween?.resume();start();}else{tween?.pause();stop();}},{threshold:0});observer.observe(art);
   const resizer=new ResizeObserver(resize);resizer.observe(art);

@@ -4,6 +4,7 @@ import { initServicePreviews } from './services';
 import { initSignatureIntro } from './intro';
 import { initProcessSteps } from './process';
 import { initIdentity } from './identity';
+import { initProjectIdentity } from './project-identity';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -112,6 +113,7 @@ function initSite() {
   initServicePreviews(media);
   initProcessSteps(media);
   const disposeIdentity = initIdentity(media);
+  const disposeProjectIdentity = initProjectIdentity(media);
 
   // All content is visible in the base HTML. Enhancement never gates access to it.
   media.add('(prefers-reduced-motion: no-preference)', context => {
@@ -134,7 +136,7 @@ function initSite() {
   document.fonts.ready.then(refresh);
   window.addEventListener('load', refresh, { ...options, once: true });
 
-  return () => { disposeIntro(); disposeIdentity(); abort.abort(); media.revert(); closeMenu(); };
+  return () => { disposeIntro(); disposeIdentity(); disposeProjectIdentity(); abort.abort(); media.revert(); closeMenu(); };
 }
 
 let dispose: (() => void) | undefined;
