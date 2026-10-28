@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#F5F4F0">
+  <title>Suplio — Typography Portal / Laboratorio 01</title>
+  <link rel="preload" href="/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#proyecto" data-enter-project>Ir al proyecto</a>
+  <header class="lab-header" data-header>
+    <a href="#inicio" class="brand" aria-label="Suplio — inicio del laboratorio"><img class="brand-light" src="/brand/light.svg" alt="Suplio" width="126" height="40"><img class="brand-dark" src="/brand/dark.svg" alt="" width="126" height="40" aria-hidden="true"></a>
+    <span class="lab-index"><i></i> Laboratorio <span>/ 01</span></span>
+    <a class="nav-project" href="#proyecto" data-enter-project>Ir al proyecto <span aria-hidden="true">↘</span></a>
+  </header>
+  <main id="inicio">
+    <section class="method-context" aria-labelledby="method-title">
+      <div class="context-meta"><span class="eyebrow">02 / Cómo trabajamos</span><span class="eyebrow context-state">Exploración de motion</span></div>
+      <div class="context-copy"><h2 id="method-title">Primero entendemos.<br>Después construimos.</h2><p>Una idea encuentra su forma<br>cuando empezamos a construirla.</p></div>
+      <div class="context-bottom"><span class="eyebrow">Del proceso al proyecto</span><a href="#portal" class="scroll-cue">Seguí bajando <span aria-hidden="true">↓</span></a></div>
+    </section>
+    <section class="portal" id="portal" aria-labelledby="portal-title">
+      <h1 class="sr-only" id="portal-title">De la idea a lo concreto.</h1>
+      <div class="portal-frame" data-frame>
+        <div class="type-scene" aria-hidden="true">
+          <svg class="portal-svg" viewBox="0 0 1200 860" xmlns="http://www.w3.org/2000/svg" focusable="false">
+            <defs><mask id="portal-aperture" maskUnits="userSpaceOnUse" x="-1200" y="-860" width="3600" height="2580" style="mask-type:luminance"><rect data-mask-field x="-1200" y="-860" width="3600" height="2580" fill="white"/><path data-counter fill="black"/></mask></defs>
+            <g mask="url(#portal-aperture)">
+              <rect data-paper x="-1200" y="-860" width="3600" height="2580" fill="#F5F4F0"/>
+              <g class="type-lines" fill="#16140F">
+                <text data-line="first" x="68" y="276" font-size="196">de la idea</text>
+                <text data-line="middle" x="68" y="484" font-size="251">a lo</text>
+                <path data-glyph fill="#FF5A1F"/>
+                <text data-line="last" x="68" y="682" font-size="196">concreto<tspan fill="#FF5A1F">.</tspan></text>
+              </g>
+            </g>
+            <path data-counter-plate fill="#F5F4F0"/>
+          </svg>
+          <div class="type-meta"><span class="eyebrow">Diseño + tecnología</span><span class="eyebrow">Suplio / En movimiento</span></div>
+          <div class="type-bottom"><span>Una idea. Una dirección.<br>Algo real al otro lado.</span><span class="scroll-instruction">Avanzá para atravesar <b aria-hidden="true">↓</b></span></div>
+        </div>
+        <section class="project-scene" id="proyecto" aria-labelledby="project-title">
+          <div class="project-world">
+            <div class="project-label"><span class="eyebrow">03 / Proyectos</span><span class="eyebrow">01 — Naves del Sur</span></div>
+            <div class="project-heading"><h2 id="project-title" tabindex="-1">Naves del Sur<span class="case-period">.</span></h2><p>Diseño y desarrollo web<br>para Naves del Sur S.A.</p></div>
+            <figure class="project-camera">
+              <div class="depth-echo" aria-hidden="true"></div>
+              <div class="video-surface"><video id="showcase" width="1280" height="720" muted loop playsinline controls preload="none" poster="/media/poster.webp" aria-label="Motion showcase real de Naves del Sur"><source src="/media/showcase.mp4" type="video/mp4">Tu navegador no puede reproducir este video. <a href="/media/showcase.mp4">Abrir MP4</a></video></div>
+              <figcaption class="sr-only">Naves del Sur: interfaz real, catálogo y transformación de desktop a mobile.</figcaption>
+            </figure>
+            <div class="project-bottom"><span class="eyebrow">Diseño y desarrollo web <span class="bottom-slash">/</span> 12,6 s</span><button type="button" class="video-toggle" hidden aria-controls="showcase">Reproducir video <span aria-hidden="true">▶</span></button><a href="https://navesdelsur.com/" target="_blank" rel="noopener noreferrer">Visitar sitio <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </section>
+        <div class="chapter-progress" aria-hidden="true"><span data-phase-label>01 / La idea</span><span class="progress-track"><i data-progress></i></span><span data-phase-number>01 — 03</span></div>
+      </div>
+    </section>
+    <section class="project-notes" aria-labelledby="notes-title">
+      <span class="eyebrow">Naves del Sur S.A.</span>
+      <div><h2 id="notes-title">Una presencia digital<br>para la industria.</h2><p>Diseño y desarrollo de una experiencia web institucional para Naves del Sur, una empresa industrial especializada en soluciones de bombeo.</p><nav aria-label="Continuar exploración"><a href="#portal" data-replay>Volver a atravesar <span aria-hidden="true">↑</span></a><a href="/media/showcase.mp4" download>Descargar showcase <span aria-hidden="true">↗</span></a></nav></div>
+    </section>
+    <footer class="lab-footer"><span>suplio<span class="orange-dot">.</span></span><p>Laboratorio 01 · Typography Portal<br>Prototipo independiente</p><a href="#inicio">Volver al inicio ↑</a></footer>
+  </main>
+  <script src="/vendor/gsap.min.js"></script><script src="/vendor/ScrollTrigger.min.js"></script><script type="module" src="/portal.js"></script>
+</body>
+</html>

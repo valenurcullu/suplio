@@ -95,7 +95,6 @@ img { max-width: 100%; height: auto; display: block; }
 .round-arrow { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; transition: background .25s; }
 .round-arrow .arrow { width: 17px; height: 17px; }
 .hero-discover:hover .round-arrow { background: var(--orange); border-color: var(--orange); }
-.hero-baseline { display: flex; justify-content: space-between; border-top: 1px solid var(--line); padding-block: 16px; color: var(--muted); font-size: 9px; }
 
 /* Services */
 .section-heading { display: grid; grid-template-columns: 1fr 2fr; column-gap: 40px; align-items: start; margin-bottom: 64px; }
@@ -289,8 +288,6 @@ img { max-width: 100%; height: auto; display: block; }
   .contact-link__icon { width: 33px; height: 33px; }
   .contact-link__icon .arrow { width: 17px; height: 17px; }
   .hero-discover { display: none; }
-  .hero-baseline { font-size: 7px; gap: 20px; padding-block: 13px; }
-  .hero-baseline > span:last-child { text-align: right; max-width: 145px; }
   .section-heading { display: block; margin-bottom: 38px; }
   .section-heading > .eyebrow { padding-top: 0; font-size: 9px; margin-bottom: 30px; }
   .section-heading h2 { font-size: 43px; line-height: 1.06; }

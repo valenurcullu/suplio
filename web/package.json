@@ -19,12 +19,14 @@
     "astro": "^7.4.1",
     "gsap": "^3.14.0",
     "sharp": "^0.35.5",
-    "tailwindcss": "^4.1.0"
+    "tailwindcss": "^4.1.0",
+    "three": "0.128.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.0",
     "@axe-core/playwright": "^4.10.0",
     "@playwright/test": "^1.56.0",
+    "@types/three": "0.128.0",
     "typescript": "^5.9.0"
   }
 }

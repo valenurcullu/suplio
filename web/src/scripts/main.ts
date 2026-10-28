@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initServicePreviews } from './services';
 import { initSignatureIntro } from './intro';
 import { initProcessSteps } from './process';
+import { initIdentity } from './identity';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -110,6 +111,7 @@ function initSite() {
   const disposeIntro = initSignatureIntro({ onReveal: heroMotion.reveal, onFinish: heroMotion.finish });
   initServicePreviews(media);
   initProcessSteps(media);
+  const disposeIdentity = initIdentity(media);
 
   // All content is visible in the base HTML. Enhancement never gates access to it.
   media.add('(prefers-reduced-motion: no-preference)', context => {
@@ -125,13 +127,6 @@ function initSite() {
 
   media.add({ desktop: '(min-width: 900px)', motion: '(prefers-reduced-motion: no-preference)' }, context => {
     if (!context.conditions?.desktop || !context.conditions?.motion) return;
-    const identity = document.querySelector<HTMLElement>('[data-identity]');
-    const paths = identity?.querySelectorAll('.identity-mark path');
-    if (identity && paths?.length === 2) {
-      const timeline = gsap.timeline({ scrollTrigger: { trigger: identity, start: 'top 85%', end: 'center 43%', scrub: .7 } });
-      timeline.fromTo(paths[0], { x: -37, y: -12 }, { x: 0, y: 0, ease: 'none' }, 0);
-      timeline.fromTo(paths[1], { x: 37, y: 12 }, { x: 0, y: 0, ease: 'none' }, 0);
-    }
     if (document.querySelector('[data-project-stage]')) gsap.fromTo('.project-stage__grid', { y: -14, scale: 1.12 }, { y: 14, scale: 1.03, ease: 'none', scrollTrigger: { trigger: '[data-project-stage]', start: 'top bottom', end: 'bottom top', scrub: .8 } });
   });
 
@@ -139,7 +134,7 @@ function initSite() {
   document.fonts.ready.then(refresh);
   window.addEventListener('load', refresh, { ...options, once: true });
 
-  return () => { disposeIntro(); abort.abort(); media.revert(); closeMenu(); };
+  return () => { disposeIntro(); disposeIdentity(); abort.abort(); media.revert(); closeMenu(); };
 }
 
 let dispose: (() => void) | undefined;

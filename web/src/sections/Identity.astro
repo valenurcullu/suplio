@@ -1,4 +1,10 @@
 ---
 import BrandMark from '../components/BrandMark.astro';
 ---
-<section class="identity" aria-labelledby="identity-title" data-identity><div class="shell identity-inner"><span class="eyebrow identity-kicker">Distintas piezas. Una misma dirección.</span><div class="identity-art" aria-hidden="true"><span class="identity-axis identity-axis--x"></span><span class="identity-axis identity-axis--y"></span><BrandMark class="identity-mark" animated /><span class="identity-coordinate identity-coordinate--left">Necesidad</span><span class="identity-coordinate identity-coordinate--right">Solución</span></div><h2 id="identity-title">Cada empresa necesita<br />una solución propia<span class="orange-period">.</span></h2><span class="eyebrow identity-footnote">La tuya empieza por una conversación.</span></div></section>
+<section id="identity" class="identity" aria-labelledby="identity-title" data-identity><div class="shell identity-inner"><span class="eyebrow identity-kicker">Distintas piezas. Una misma dirección.</span><div class="identity-art" aria-hidden="true"><span class="identity-axis identity-axis--x"></span><span class="identity-axis identity-axis--y"></span><BrandMark class="identity-mark" light animated /><div class="identity-canvas" data-identity-canvas></div><span class="identity-coordinate identity-coordinate--left">Necesidad</span><span class="identity-coordinate identity-coordinate--right">Solución</span></div><h2 id="identity-title">Cada empresa necesita<br />una solución propia<span class="orange-period">.</span></h2><span class="eyebrow identity-footnote">La tuya empieza por una conversación.</span></div></section>
+
+<style>
+  .identity { background: #16140F; color: #F5F4F0; --line: #35322C; --muted: #B8B3A9; }
+  .identity-canvas { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; }
+  .identity-canvas :global(canvas) { display: block; width: 100%; height: 100%; pointer-events: none; }
+</style>
